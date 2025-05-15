@@ -5,6 +5,7 @@ import FinalProject01.item.Author;
 import FinalProject01.item.Book;
 import FinalProject01.item.LibraryItem;
 import FinalProject01.user.Member;
+import FinalProject01.user.Staff;
 import FinalProject01.user.User;
 
 import java.security.InvalidParameterException;
@@ -62,10 +63,22 @@ public class Library implements Searchable {
     }
 
     public void addUser(User user) {
-        if(members.containsKey(user.getUserId())) {
-            throw new UserException(user.getUserId(), "Cannot add duplicated user to the library", "User already exists in the library!");
+
+        if(user.getClass().equals(Member.class)) {
+            if(members.containsKey(user.getUserId())) {
+                throw new UserException(user.getUserId(), "Cannot add duplicated member to the library", "Member already exists in the library!");
+            }
+            members.put(user.getUserId(), user);
+        } else if(user.getClass().equals(Staff.class)){
+            if(staffMembers.containsKey(user.getUserId())) {
+                throw new UserException(user.getUserId(), "Cannot add duplicated staff to the library", "Staff already exists in the library!");
+            }
+            staffMembers.put(user.getUserId(), user);
+        } else {
+            throw new UserException(user.getUserId(), "Unknown user type", "");
         }
-        members.put(user.getUserId(), user);
+
+
     }
 
     public void removeUser(String userId) {
@@ -96,6 +109,14 @@ public class Library implements Searchable {
 
     public List<User> getStaffMembers() {
         return new ArrayList<>(staffMembers.values());
+    }
+
+    public void removeStaffMember(String staffMemberId) {
+        if(!staffMembers.containsKey(staffMemberId)) {
+            throw new UserException(staffMemberId, "Staff member doesn't exist in the library", "Couldn't find the saff member in the library");
+        }
+
+        staffMembers.remove(staffMemberId);
     }
 
     public void addItem(LibraryItem item) {
