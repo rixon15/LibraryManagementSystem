@@ -1,5 +1,7 @@
 package FinalProject01.item;
 
+import FinalProject01.exceptions.ItemException;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,7 +34,7 @@ public class Author {
             throw new IllegalArgumentException("Book cannot be null");
         }
         if(books.contains(book)) {
-            //throw BookAlreadyexists exception
+            throw new ItemException(book.getItemId(),  "Book cannot be duplicated", "Book already exists in the list");
         }
 
         books.add(book);
@@ -43,7 +45,7 @@ public class Author {
             throw new IllegalArgumentException("Book cannot be null");
         }
         if(!books.contains(book)) {
-            //throw BookDoesntExist exception
+           throw new ItemException(book.getItemId(), "Book doesn't exists", "Cannot delete a book that's not part of the list");
         }
         books.remove(book);
     }

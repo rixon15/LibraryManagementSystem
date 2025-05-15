@@ -1,5 +1,6 @@
 package FinalProject01.library;
 
+import FinalProject01.exceptions.*;
 import FinalProject01.item.Author;
 import FinalProject01.item.Book;
 import FinalProject01.item.LibraryItem;
@@ -32,7 +33,7 @@ public class Library implements Searchable {
 
     public void borrowItem(Member user, LibraryItem item, int borrowDuration) {
         if(!item.isAvailable()) {
-            throw new ItemUnavailableException(item.getItemId(), "Item is currently not available.", "Cannot borrow item.");
+            throw new ItemException(item.getItemId(), "Item is currently not available.", "Cannot borrow item.");
         }
 
         if(user == null || item == null) {
@@ -47,7 +48,7 @@ public class Library implements Searchable {
 
     public void returnItem(Member user, LibraryItem item) {
         if(item.isAvailable()) {
-            throw new ItemUnavailableException(item.getItemId(), "Item was already marked as available.", "Cannot return item.");
+            throw new ItemException(item.getItemId(), "Item was already marked as available.", "Cannot return item.");
         }
         if (user == null || item == null) {
             throw new IllegalArgumentException("User and Item cannot be null.");
@@ -62,14 +63,14 @@ public class Library implements Searchable {
 
     public void addUser(User user) {
         if(members.containsKey(user.getUserId())) {
-            //throw new UserAlreadyExists exception
+            throw new UserException(user.getUserId(), "Cannot add duplicated user to the library", "User already exists in the library!");
         }
         members.put(user.getUserId(), user);
     }
 
     public void removeUser(String userId) {
         if(!members.containsKey(userId)) {
-            //throw new UserDoesntExists exception
+            throw new UserException(userId, "Cannot remove user that doesn't exist in the library", "User doesn't exit in the library!");
         }
         members.remove(userId);
     }
@@ -83,7 +84,7 @@ public class Library implements Searchable {
         }
 
         if(user == null) {
-            //trow new userDoesntExists exception
+           throw new UserException(userId, "User doesn't exist in the library", "Couldn't find the user in the library");
         }
 
         return user;
@@ -99,42 +100,44 @@ public class Library implements Searchable {
 
     public void addItem(LibraryItem item) {
         if(items.containsKey(item.getItemId())) {
-            //throw new itemAlreadyExists exception
+            throw new ItemException(item.getItemId(), "Cannot add duplicated Items to the library", "The item already exists in the library");
         }
         items.put(item.getItemId(), item);
     }
 
     public void removeItem(String itemId) {
         if(!items.containsKey(itemId)) {
-            //throw new itemDoesntExist exception
+           throw new ItemException(itemId, "Item doesn't exist in the library", "The item cannot be found in the library");
         }
         items.remove(itemId);
     }
 
     public void updateItem(LibraryItem item) {
         if (!items.containsKey(item.getItemId())) {
-            //throw new itemDoesntExist exception
+           throw new ItemException(item.getItemId(), "Cannot find the item to update", "Cannot update an item that's not in the library");
         }
         items.put(item.getItemId(), item);
     }
 
     public LibraryItem findItemById(String itemId) {
-        if(!items.containsKey(itemId)) {
-            //throw new itemDoesntExist exception
+        LibraryItem item = items.get(itemId);
+        if(item == null) {
+           throw new ItemException(itemId, "Item is not in the library", "Couldn't find the item in the library");
         }
-        return items.get(itemId);
+
+        return item;
     }
 
     public void addAuthor(Author author) {
         if(authors.containsKey(author.getAuthorId())) {
-            //throw author already exists
+            throw new AuthorException(author.getAuthorId(), "Cannot add duplicated Author", "Author already exists in the library");
         }
         authors.put(author.getAuthorId(), author);
     }
 
     public void removeAuthor(String authorId) {
         if(authors.containsKey(authorId)) {
-            //throw author doesnt exist exception
+           throw new AuthorException(authorId, "Author doesn't exist in the library", "Author is not part of the library");
         }
         authors.remove(authorId);
     }
@@ -155,7 +158,7 @@ public class Library implements Searchable {
        }
 
        if(result.isEmpty()) {
-           //throw searchFailedException => no item found
+          throw new SearchException("No item found with the provided title", "The library contains no item with the title");
        }
        return result;
     }
@@ -172,9 +175,11 @@ public class Library implements Searchable {
            }
        }
 
+
        if(result.isEmpty()) {
-           //throw searchFailedException => no item found
+           throw new SearchException("No item found with the provided author", "The library contains no item by the author");
        }
+
 
        return result;
     }
@@ -191,8 +196,9 @@ public class Library implements Searchable {
             }
         }
 
+
         if(result.isEmpty()) {
-            //throw searchFailedException => nno item found
+            throw new SearchException("No item found with the provided title", "The library contains no item with the title");
         }
 
         return result;
@@ -224,7 +230,7 @@ public class Library implements Searchable {
             if(recordOptional.isPresent()) {
                 recordOptional.get().setReturnDate(LocalDate.now());
             } else {
-                //Throw BorrowingRecordNotFound exception
+               throw new BorrowingRecordException("Borrowing record doesn't exist", "Couldn't find the borrowing record in the library");
             }
         }
 
