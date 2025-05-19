@@ -1,8 +1,7 @@
-package FinalProject01.user;
+package user;
 
-import FinalProject01.item.Author;
-import FinalProject01.item.LibraryItem;
-import FinalProject01.library.Library;
+import item.LibraryItem;
+import library.Library;
 
 import java.util.UUID;
 

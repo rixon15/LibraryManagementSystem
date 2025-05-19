@@ -1,4 +1,4 @@
-package FinalProject01.user;
+package user;
 
 import java.util.UUID;
 

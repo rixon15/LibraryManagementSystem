@@ -1,12 +1,12 @@
-package FinalProject01.library;
+package library;
 
-import FinalProject01.exceptions.*;
-import FinalProject01.item.Author;
-import FinalProject01.item.Book;
-import FinalProject01.item.LibraryItem;
-import FinalProject01.user.Member;
-import FinalProject01.user.Staff;
-import FinalProject01.user.User;
+import exceptions.*;
+import user.Author;
+import item.Book;
+import item.LibraryItem;
+import user.Member;
+import user.Staff;
+import user.User;
 
 import java.security.InvalidParameterException;
 import java.time.LocalDate;

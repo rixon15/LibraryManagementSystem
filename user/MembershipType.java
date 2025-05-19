@@ -1,4 +1,4 @@
-package FinalProject01.user;
+package user;
 
 public enum MembershipType {
     REGULAR,

@@ -1,4 +1,4 @@
-package FinalProject01.exceptions;
+package exceptions;
 
 public class ItemException extends RuntimeException {
 

@@ -1,4 +1,4 @@
-package FinalProject01.item;
+package item;
 
 public enum BookGenres {
     SCIENCE_FICTION,

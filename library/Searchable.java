@@ -1,6 +1,6 @@
-package FinalProject01.library;
+package library;
 
-import FinalProject01.item.LibraryItem;
+import item.LibraryItem;
 
 import java.util.List;
 

@@ -1,4 +1,6 @@
-package FinalProject01.item;
+package item;
+
+import user.Author;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
@@ -9,8 +11,8 @@ public class Book extends LibraryItem {
     private final List<BookGenres> genres;
     private String description;
 
-    public Book( String title, boolean available, Author author, List<BookGenres> genres, String description) {
-        super(title, available);
+    public Book( String title, Author author, List<BookGenres> genres, String description) {
+        super(title);
         if (author == null) {
             throw new IllegalArgumentException("Author cannot be null");
         }

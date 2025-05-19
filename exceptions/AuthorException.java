@@ -1,4 +1,4 @@
-package FinalProject01.exceptions;
+package exceptions;
 
 public class AuthorException extends RuntimeException {
     private String authorId;

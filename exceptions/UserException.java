@@ -1,4 +1,4 @@
-package FinalProject01.exceptions;
+package exceptions;
 
 public class UserException extends RuntimeException {
     private String userId;

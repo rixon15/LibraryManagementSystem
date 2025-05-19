@@ -1,4 +1,4 @@
-package FinalProject01.exceptions;
+package exceptions;
 
 public class BorrowingRecordException extends RuntimeException {
     private String BorrowingRecordId;

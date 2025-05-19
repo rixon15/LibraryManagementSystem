@@ -1,7 +1,7 @@
-package FinalProject01.user;
+package user;
 
 
-import FinalProject01.item.LibraryItem;
+import item.LibraryItem;
 
 import java.util.ArrayList;
 import java.util.List;

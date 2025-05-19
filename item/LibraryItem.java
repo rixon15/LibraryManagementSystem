@@ -1,15 +1,14 @@
-package FinalProject01.item;
+package item;
 
 import java.util.UUID;
 
 public abstract class LibraryItem implements Borrowable {
     private final String itemId = UUID.randomUUID().toString();
     private String title;
-    private boolean available;
+    private boolean available = true;
 
-    public LibraryItem(String title, boolean available) {
+    public LibraryItem(String title) {
         this.title = title;
-        this.available = available;
     }
 
     public String getItemId() {
